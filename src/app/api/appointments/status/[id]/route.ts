@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getAsaasPixQrCode } from "@/lib/asaas";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params;
@@ -18,7 +18,7 @@ export async function GET(
     let pixData = null;
     if (appointment.asaasPaymentId && appointment.paymentStatus === "PENDING") {
       try {
-        pixData = await getAsaasPixQrCode(appointment.id);
+        pixData = await getAsaasPixQrCode(appointment.asaasPaymentId);
       } catch (e) {
         console.error("Error fetching PIX data", e);
       }

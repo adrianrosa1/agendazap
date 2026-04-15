@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import { useParams } from 'next/navigation';
 import { CheckCircle2, Clock, Copy, ExternalLink, Zap } from 'lucide-react';
 
-export default function BookingStatus() {
-  const { id } = useParams();
+export default function BookingStatus({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,8 +19,8 @@ export default function BookingStatus() {
     }
   }, [id]);
 
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center font-sans">Carregando...</div>;
-  if (!data || !data.appointment) return <div className="min-h-screen flex items-center justify-center font-sans">Agendamento não encontrado.</div>;
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center font-sans text-gray-500 font-bold">Carregando...</div>;
+  if (!data || !data.appointment) return <div className="min-h-screen flex items-center justify-center font-sans text-red-500 font-bold">Agendamento não encontrado.</div>;
 
   const { appointment, pixData } = data;
 
@@ -31,36 +31,36 @@ export default function BookingStatus() {
           <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
             <Zap className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold">Reserva Quase Pronta!</h1>
-          <p className="text-blue-100">Pague o sinal para confirmar seu horário.</p>
+          <h1 className="text-2xl font-bold uppercase tracking-tight">Reserva Quase Pronta!</h1>
+          <p className="text-blue-100 font-medium">Pague o sinal para confirmar seu horário.</p>
         </div>
 
         <div className="p-8">
           <div className="space-y-4 mb-8">
             <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-              <span className="text-gray-500 font-medium">Serviço</span>
-              <span className="font-bold text-gray-900">{appointment.service.name}</span>
+              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest">Serviço</span>
+              <span className="font-extrabold text-gray-900">{appointment.service.name}</span>
             </div>
             <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-              <span className="text-gray-500 font-medium">Data e Hora</span>
-              <span className="font-bold text-gray-900">{new Date(appointment.date).toLocaleDateString('pt-BR')} às {appointment.startTime}</span>
+              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest">Data e Hora</span>
+              <span className="font-extrabold text-gray-900">{new Date(appointment.date).toLocaleDateString('pt-BR')} às {appointment.startTime}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-500 font-medium">Valor do Sinal</span>
-              <span className="text-xl font-extrabold text-blue-600 text-green-600">R$ 10,00</span>
+              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest">Valor do Sinal</span>
+              <span className="text-2xl font-black text-green-600 tracking-tighter">R$ 10,00</span>
             </div>
           </div>
 
           {appointment.paymentStatus === 'PAID' ? (
-            <div className="bg-green-50 p-6 rounded-2xl text-center border border-green-100">
+            <div className="bg-green-50 p-6 rounded-2xl text-center border-2 border-green-100 animate-in fade-in zoom-in">
               <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-3" />
-              <h3 className="font-bold text-green-800">Pagamento Confirmado!</h3>
-              <p className="text-sm text-green-600">Seu horário está garantido. Te esperamos lá!</p>
+              <h3 className="font-bold text-green-800 text-lg">PAGAMENTO CONFIRMADO!</h3>
+              <p className="text-sm text-green-600 font-medium">Seu horário está garantido. Te esperamos lá!</p>
             </div>
           ) : pixData ? (
             <div className="space-y-6 text-center">
-              <div className="bg-gray-100 p-4 rounded-2xl inline-block">
-                <img src={`data:image/png;base64,${pixData.encodedImage}`} alt="QR Code Pix" className="w-48 h-48 mx-auto" />
+              <div className="bg-white p-4 rounded-3xl border-2 border-gray-100 inline-block shadow-sm">
+                <img src={`data:image/png;base64,${pixData.encodedImage}`} alt="QR Code Pix" className="w-56 h-56 mx-auto" />
               </div>
               
               <button 
@@ -68,22 +68,29 @@ export default function BookingStatus() {
                   navigator.clipboard.writeText(pixData.payload);
                   alert("Código Pix copiado!");
                 }}
-                className="w-full bg-gray-900 text-white font-bold py-4 rounded-xl flex items-center justify-center space-x-2"
+                className="w-full bg-gray-900 text-white font-black py-5 rounded-2xl flex items-center justify-center space-x-2 active:scale-95 transition-transform shadow-xl"
               >
                 <Copy className="h-5 w-5" />
-                <span>Copiar Código Pix</span>
+                <span>COPIAR CÓDIGO PIX</span>
               </button>
+              <p className="text-xs text-gray-400 font-medium">Após o pagamento, esta página atualizará automaticamente.</p>
             </div>
           ) : (
-            <p className="text-center text-gray-500 italic">Aguardando geração do Pix...</p>
+            <div className="text-center p-8 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+               <Clock className="h-8 w-8 text-gray-400 mx-auto mb-2 animate-spin-slow" />
+               <p className="text-sm text-gray-500 font-bold">Gerando seu Pix...</p>
+            </div>
           )}
 
           <div className="mt-8 pt-8 border-t border-gray-100 text-center">
-            <p className="text-sm text-gray-400 font-medium uppercase tracking-widest mb-1">Local do Atendimento</p>
-            <h4 className="font-bold text-gray-700">{appointment.company.name}</h4>
+            <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Local do Atendimento</p>
+            <h4 className="font-extrabold text-gray-700 text-lg">{appointment.company.name}</h4>
           </div>
         </div>
       </div>
+      <footer className="mt-auto py-8 text-center text-gray-400 text-xs font-bold">
+        Powered by AgendaZap
+      </footer>
     </div>
   );
 }
