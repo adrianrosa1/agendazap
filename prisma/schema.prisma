@@ -25,6 +25,7 @@ model Company {
   id           String        @id @default(uuid())
   name         String
   slug         String        @unique
+  plan         String        @default("BRONZE")
   users        User[]
   services     Service[]
   availability Availability[]

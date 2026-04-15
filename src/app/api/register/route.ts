@@ -6,6 +6,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, password, companyName } = body;
 
+    if (!name || !email || !password || !companyName) {
+      return NextResponse.json({ error: "Todos os campos são obrigatórios" }, { status: 400 });
+    }
+
     // 1. Check if user exists
     const existingUser = await prisma.user.findUnique({
       where: { email }
@@ -15,12 +19,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "E-mail já cadastrado" }, { status: 400 });
     }
 
-    // 2. Create Company
+    // 2. Create Company with default BRONZE plan
     const slug = companyName.toLowerCase().replace(/[^a-z0-9]/g, '-');
     const company = await prisma.company.create({
       data: {
         name: companyName,
         slug: slug,
+        plan: "BRONZE",
       }
     });
 
@@ -29,14 +34,18 @@ export async function POST(request: Request) {
       data: {
         name,
         email,
-        // In real app, hash password!
+        // In a real app, hash password!
         companyId: company.id,
       }
     });
 
-    return NextResponse.json({ user, company });
+    return NextResponse.json({ 
+      success: true,
+      user: { id: user.id, email: user.email, name: user.name }, 
+      company: { id: company.id, name: company.name, slug: company.slug, plan: company.plan } 
+    });
   } catch (error: any) {
     console.error("Registration error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: "Erro ao criar conta. Verifique sua conexão com o banco." }, { status: 500 });
   }
 }

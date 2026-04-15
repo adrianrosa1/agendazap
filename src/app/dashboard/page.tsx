@@ -24,6 +24,7 @@ export default function Dashboard() {
     fetch(`/api/dashboard?companyId=${companyId}`)
       .then(res => res.json())
       .then(resData => {
+        console.log("Plan:", resData.company?.plan);
         setData(resData);
         setIsLoading(false);
       });
