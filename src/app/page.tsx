@@ -61,123 +61,105 @@ export default function LandingPage() {
             alt="Barbearia Moderna" 
             className="rounded-2xl shadow-2xl border border-gray-100"
           />
-          {/* Floating Card */}
-          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-2xl border border-gray-50 max-w-xs animate-bounce-slow">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="bg-green-100 p-2 rounded-full">
-                <Shield className="h-5 w-5 text-green-600" />
-              </div>
-              <span className="font-bold text-sm">Pagamento Confirmado!</span>
-            </div>
-            <p className="text-xs text-gray-500 font-medium leading-relaxed">
-              "João acabou de pagar o sinal via Pix. Agendamento garantido para amanhã às 14h."
-            </p>
-          </div>
         </div>
       </header>
 
-      {/* Features Grid */}
-      <section id="features" className="py-24 bg-gray-50">
+      {/* Pricing Section */}
+      <section id="pricing" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Tudo o que você precisa para crescer</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Criado especificamente para o comportamento do cliente brasileiro.</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Planos que cabem no seu bolso</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Comece grátis e escale conforme seu negócio cresce.</p>
           </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { 
-                title: "WhatsApp Automático", 
-                desc: "Lembretes de 24h e 2h antes do horário para que ninguém esqueça.",
-                icon: Phone,
-                color: "bg-green-50 text-green-600"
-              },
-              { 
-                title: "Cobrança de Sinal via Pix", 
-                desc: "Receba uma parte do valor no ato do agendamento e elimine os 'furos'.",
-                icon: Zap,
-                color: "bg-blue-50 text-blue-600"
-              },
-              { 
-                title: "Gestão Completa de Clientes", 
-                desc: "Histórico de visitas, faturamento por cliente e lembretes de retorno.",
-                icon: Calendar,
-                color: "bg-purple-50 text-purple-600"
-              }
-            ].map((f, i) => (
-              <div key={i} className="bg-white p-8 rounded-3xl border border-gray-100 hover:shadow-xl transition-all group">
-                <div className={`${f.color} w-12 h-12 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  <f.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{f.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{f.desc}</p>
+            <div className="border border-gray-100 rounded-3xl p-8 bg-white hover:shadow-xl transition-all">
+              <h3 className="text-xl font-bold mb-2">Bronze</h3>
+              <p className="text-gray-500 text-sm mb-6">Para quem está começando</p>
+              <div className="mb-6">
+                <span className="text-4xl font-extrabold">Grátis</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center text-sm text-gray-600">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Até 20 agendamentos/mês
+                </li>
+                <li className="flex items-center text-sm text-gray-600">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Link personalizado
+                </li>
+              </ul>
+              <Link href="/register" className="block text-center py-3 rounded-xl border-2 border-gray-100 font-bold hover:bg-gray-50 transition-colors">
+                Começar Grátis
+              </Link>
+            </div>
 
-      {/* Social Proof / Stats */}
-      <section className="py-20 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <p className="text-4xl font-extrabold text-blue-600 mb-1">10k+</p>
-            <p className="text-gray-500 font-bold uppercase text-xs tracking-widest">Agendamentos</p>
-          </div>
-          <div>
-            <p className="text-4xl font-extrabold text-blue-600 mb-1">R$ 500k+</p>
-            <p className="text-gray-500 font-bold uppercase text-xs tracking-widest">Processados</p>
-          </div>
-          <div>
-            <p className="text-4xl font-extrabold text-blue-600 mb-1">80%</p>
-            <p className="text-gray-500 font-bold uppercase text-xs tracking-widest">Menos Faltas</p>
-          </div>
-          <div>
-            <p className="text-4xl font-extrabold text-blue-600 mb-1">15 min</p>
-            <p className="text-gray-500 font-bold uppercase text-xs tracking-widest">Salvos por dia</p>
+            <div className="border-2 border-blue-600 rounded-3xl p-8 bg-white shadow-2xl relative scale-105 z-10">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
+                Mais Popular
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-blue-600">Prata</h3>
+              <p className="text-gray-500 text-sm mb-6">O essencial para autônomos</p>
+              <div className="mb-6">
+                <span className="text-4xl font-extrabold">R$ 29,90</span>
+                <span className="text-gray-400 text-sm font-medium">/mês</span>
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center text-sm text-gray-600 font-bold">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Agendamentos Ilimitados
+                </li>
+                <li className="flex items-center text-sm text-gray-600">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  WhatsApp Automático
+                </li>
+              </ul>
+              <Link href="/register" className="block text-center py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">
+                Escolher Prata
+              </Link>
+            </div>
+
+            <div className="border border-gray-100 rounded-3xl p-8 bg-gray-50 hover:shadow-xl transition-all">
+              <h3 className="text-xl font-bold mb-2">Ouro</h3>
+              <p className="text-gray-500 text-sm mb-6">Para faturamento garantido</p>
+              <div className="mb-6">
+                <span className="text-4xl font-extrabold">R$ 59,90</span>
+                <span className="text-gray-400 text-sm font-medium">/mês</span>
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center text-sm text-gray-600 font-bold">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Cobrança de Sinal via Pix
+                </li>
+                <li className="flex items-center text-sm text-gray-600">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Dashboard de Receita IA
+                </li>
+              </ul>
+              <Link href="/register" className="block text-center py-3 rounded-xl border-2 border-gray-200 font-bold hover:bg-white transition-colors">
+                Escolher Ouro
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-8 leading-tight">
-            Pronto para colocar seu negócio no piloto automático?
-          </h2>
-          <p className="text-xl text-blue-100 mb-12">
-            Junte-se a centenas de barbeiros, manicures e profissionais que já estão faturando mais com o AgendaZap.
-          </p>
-          <Link href="/register" className="bg-white text-blue-600 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-blue-50 transition-all inline-block shadow-2xl">
-            Começar Grátis Agora
-          </Link>
-        </div>
+      <section className="py-24 bg-blue-600 text-white text-center">
+        <h2 className="text-4xl font-extrabold mb-8">Pronto para começar?</h2>
+        <Link href="/register" className="bg-white text-blue-600 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-blue-50 transition-all inline-block shadow-2xl">
+          Criar Minha Agenda
+        </Link>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-gray-100 bg-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:row justify-between items-center space-y-6 md:space-y-0">
-          <div className="flex items-center space-x-2">
-            <Zap className="h-5 w-5 text-blue-600" />
-            <span className="text-xl font-bold">AgendaZap</span>
-          </div>
-          <p className="text-gray-400 text-sm">© 2024 AgendaZap. Todos os direitos reservados. Feito com ❤️ no Brasil.</p>
-          <div className="flex space-x-6 text-gray-400 font-medium text-sm">
-            <a href="#" className="hover:text-gray-900 transition-colors">Termos</a>
-            <a href="#" className="hover:text-gray-900 transition-colors">Privacidade</a>
-            <a href="#" className="hover:text-gray-900 transition-colors">Contato</a>
-          </div>
+      <footer className="py-12 border-t border-gray-100 bg-white text-center">
+        <div className="flex items-center justify-center space-x-2 mb-4">
+          <Zap className="h-5 w-5 text-blue-600" />
+          <span className="text-xl font-bold">AgendaZap</span>
         </div>
+        <p className="text-gray-400 text-sm">© 2024 AgendaZap. Todos os direitos reservados.</p>
       </footer>
-
-      <style jsx global>{`
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(-5%); }
-          50% { transform: translateY(0); }
-        }
-        .animate-bounce-slow {
-          animation: bounce-slow 4s infinite ease-in-out;
-        }
-      `}</style>
     </div>
   );
 }
