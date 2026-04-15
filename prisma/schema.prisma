@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+  appointments Appointment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Company {
+  id           String        @id @default(uuid())
+  name         String
+  slug         String        @unique
+  users        User[]
+  services     Service[]
+  availability Availability[]
+  appointments Appointment[]
+  clients      Client[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Service {
+  id           String        @id @default(uuid())
+  name         String
+  description  String?
+  duration     Int           // in minutes
+  price        Float
+  companyId    String
+  company      Company       @relation(fields: [companyId], references: [id])
+  appointments Appointment[]
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Availability {
+  id        String   @id @default(uuid())
+  dayOfWeek Int      // 0 (Sunday) to 6 (Saturday)
+  startTime String   // "HH:mm"
+  endTime   String   // "HH:mm"
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Appointment {
+  id              String   @id @default(uuid())
+  clientName      String
+  clientEmail     String
+  clientPhone     String
+  date            DateTime
+  startTime       String   // "HH:mm"
+  endTime         String   // "HH:mm"
+  status          String   @default("PENDING") // PENDING, CONFIRMED, CANCELLED, COMPLETED
+  paymentStatus   String   @default("PENDING") // PENDING, PAID, REFUNDED
+  asaasPaymentId  String?  @unique
+  serviceId       String
+  service         Service  @relation(fields: [serviceId], references: [id])
+  professionalId  String?
+  professional    User?     @relation(fields: [professionalId], references: [id])
+  companyId       String
+  company         Company  @relation(fields: [companyId], references: [id])
+  clientId        String?
+  client          Client?   @relation(fields: [clientId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Client {
+  id           String        @id @default(uuid())
+  name         String
+  email        String?
+  phone        String
+  companyId    String
+  company      Company       @relation(fields: [companyId], references: [id])
+  appointments Appointment[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([companyId, phone])
+}
