@@ -75,7 +75,7 @@ export async function POST(request: Request) {
 
         const charge = await createAsaasPixCharge({
           customerId: customer.id,
-          value: service.price, // For Ouro, we charge full price or signal
+          value: 10.00, // For Ouro, we charge full price or signal
           description: `Reserva: ${service.name}`,
           dueDate: format(new Date(), "yyyy-MM-dd"),
           externalReference: appointment.id
