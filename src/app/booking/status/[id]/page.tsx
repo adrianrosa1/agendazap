@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, use } from 'react';
 import { useParams } from 'next/navigation';
-import { CheckCircle2, Clock, Copy, ExternalLink, Zap } from 'lucide-react';
+import { CheckCircle2, Clock, Copy, Zap } from 'lucide-react';
 
 export default function BookingStatus({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -19,7 +19,7 @@ export default function BookingStatus({ params }: { params: Promise<{ id: string
     }
   }, [id]);
 
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center font-sans text-gray-500 font-bold">Carregando...</div>;
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center font-sans text-gray-500 font-bold text-center p-8">Carregando seus dados de agendamento...</div>;
   if (!data || !data.appointment) return <div className="min-h-screen flex items-center justify-center font-sans text-red-500 font-bold">Agendamento não encontrado.</div>;
 
   const { appointment, pixData } = data;
@@ -38,21 +38,21 @@ export default function BookingStatus({ params }: { params: Promise<{ id: string
         <div className="p-8">
           <div className="space-y-4 mb-8">
             <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest">Serviço</span>
-              <span className="font-extrabold text-gray-900">{appointment.service.name}</span>
+              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest text-left">Serviço</span>
+              <span className="font-extrabold text-gray-900 text-right">{appointment.service.name}</span>
             </div>
             <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest">Data e Hora</span>
-              <span className="font-extrabold text-gray-900">{new Date(appointment.date).toLocaleDateString('pt-BR')} às {appointment.startTime}</span>
+              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest text-left">Data e Hora</span>
+              <span className="font-extrabold text-gray-900 text-right">{new Date(appointment.date).toLocaleDateString('pt-BR')} às {appointment.startTime}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest">Valor do Sinal</span>
-              <span className="text-2xl font-black text-green-600 tracking-tighter">R$ 10,00</span>
+              <span className="text-gray-500 font-bold text-xs uppercase tracking-widest text-left">Valor do Sinal</span>
+              <span className="text-2xl font-black text-green-600 tracking-tighter text-right">R$ 10,00</span>
             </div>
           </div>
 
           {appointment.paymentStatus === 'PAID' ? (
-            <div className="bg-green-50 p-6 rounded-2xl text-center border-2 border-green-100 animate-in fade-in zoom-in">
+            <div className="bg-green-50 p-6 rounded-2xl text-center border-2 border-green-100">
               <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-3" />
               <h3 className="font-bold text-green-800 text-lg">PAGAMENTO CONFIRMADO!</h3>
               <p className="text-sm text-green-600 font-medium">Seu horário está garantido. Te esperamos lá!</p>
@@ -77,7 +77,7 @@ export default function BookingStatus({ params }: { params: Promise<{ id: string
             </div>
           ) : (
             <div className="text-center p-8 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-               <Clock className="h-8 w-8 text-gray-400 mx-auto mb-2 animate-spin-slow" />
+               <Clock className="h-8 w-8 text-gray-400 mx-auto mb-2 animate-pulse" />
                <p className="text-sm text-gray-500 font-bold">Gerando seu Pix...</p>
             </div>
           )}
@@ -88,8 +88,8 @@ export default function BookingStatus({ params }: { params: Promise<{ id: string
           </div>
         </div>
       </div>
-      <footer className="mt-auto py-8 text-center text-gray-400 text-xs font-bold">
-        Powered by AgendaZap
+      <footer className="mt-auto py-8 text-center text-gray-400 text-[10px] font-black uppercase tracking-[0.3em]">
+        AgendaZap © 2024
       </footer>
     </div>
   );

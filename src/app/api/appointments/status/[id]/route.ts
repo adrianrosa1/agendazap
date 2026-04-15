@@ -1,13 +1,13 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getAsaasPixQrCode } from "@/lib/asaas";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const appointment = await prisma.appointment.findUnique({
       where: { id },
       include: { service: true, company: true }
