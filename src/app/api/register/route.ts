@@ -46,6 +46,6 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     console.error("Registration error:", error);
-    return NextResponse.json({ error: "Erro ao criar conta. Verifique sua conexão com o banco." }, { status: 500 });
+    return NextResponse.json({ error: "Erro ao criar conta. Tente novamente em instantes." }, { status: 500 });
   }
 }
