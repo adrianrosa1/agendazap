@@ -1,36 +1,49 @@
 import cron from "node-cron";
 import { prisma } from "./prisma";
 import { sendWhatsAppNotification } from "./notifications";
-import { format, addHours, startOfHour } from "date-fns";
+import { format, addHours, startOfHour, isAfter } from "date-fns";
 
-// Run every hour at minute 0
 export function initCronJobs() {
-  console.log("Initializing cron jobs...");
+  console.log("Initializing AgendaZap Automation Engine...");
   
+  // Every hour: Check for 2h and 24h reminders
   cron.schedule("0 * * * *", async () => {
-    console.log("Checking for upcoming appointments to send reminders...");
-    
     const now = new Date();
-    const in24Hours = addHours(now, 24);
     
-    // Find appointments happening in approximately 24 hours
-    const upcoming = await prisma.appointment.findMany({
+    // 1. Find upcoming appointments for 24h reminder
+    const tomorrow = addHours(now, 24);
+    const upcoming24h = await prisma.appointment.findMany({
       where: {
-        date: {
-          gte: startOfHour(in24Hours),
-          lt: addHours(startOfHour(in24Hours), 1)
-        },
+        date: { gte: startOfHour(tomorrow), lt: addHours(startOfHour(tomorrow), 1) },
         status: "CONFIRMED"
       },
-      include: {
-        service: true,
-        company: true
-      }
+      include: { service: true, company: true }
     });
 
-    for (const app of upcoming) {
-      const message = `Lembrete: Você tem um agendamento de ${app.service.name} na ${app.company.name} amanhã às ${app.startTime}. Nos vemos lá!`;
-      await sendWhatsAppNotification(app.clientPhone, message);
+    for (const app of upcoming24h) {
+      const msg = `Lembrete AgendaZap: Você tem ${app.service.name} amanhã às ${app.startTime} em ${app.company.name}. Nos vemos lá!`;
+      await sendWhatsAppNotification(app.clientPhone, msg);
     }
+
+    // 2. Find upcoming appointments for 2h reminder
+    const in2h = addHours(now, 2);
+    const upcoming2h = await prisma.appointment.findMany({
+      where: {
+        date: { gte: startOfHour(in2h), lt: addHours(startOfHour(in2h), 1) },
+        status: "CONFIRMED"
+      },
+      include: { service: true, company: true }
+    });
+
+    for (const app of upcoming2h) {
+      const msg = `Lembrete: Seu horário de ${app.service.name} é daqui a 2 horas (${app.startTime}). Até logo!`;
+      await sendWhatsAppNotification(app.clientPhone, msg);
+    }
+  });
+
+  // Daily: Customer Reactivation (30 days without visit)
+  cron.schedule("0 9 * * *", async () => {
+    console.log("Running daily customer reactivation...");
+    // Logic for reactivation can be added here
   });
 }
