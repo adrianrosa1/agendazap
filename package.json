@@ -27,7 +27,7 @@
     "next-auth": "^4",
     "node-cron": "^4",
     "lucide-react": "^0.475.0",
-    "uuid": "^11"
+    "uuid": "^14"
   },
   "devDependencies": {
     "eslint": "^9",
