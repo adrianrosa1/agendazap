@@ -331,28 +331,6 @@ model MessageLog {
 
 **Conta rápida:** 50 clientes, média R$ 450 → **R$ 22.500/mês de receita**, ~R$ 600 de infraestrutura → margem bruta ≈ **97%** (antes de suporte, marketing e impostos — no Simples Nacional, Anexo III/V, considere 6% a 15,5%).
 
----|---|---|---|
-| Preço mensal | **R$ 197** | **R$ 397** | **R$ 797** |
-| Números conectados | 1 | 3 | 10 |
-| Envios/mês | 5.000 | 20.000 | 80.000 |
-| Leads na base | 10.000 | 50.000 | 250.000 |
-| Usuários | 1 | 3 | 10 + sub-contas para clientes |
-| Grupos VIP / campanhas | 3 ativas | Ilimitadas | Ilimitadas |
-| Follow-up automático | 2 etapas | 5 etapas | 5 etapas |
-| Link rastreável + relatórios | ✔ | ✔ | ✔ + exportação |
-| IA para variações de texto | — | ✔ | ✔ |
-| Suporte | E-mail | WhatsApp | Prioritário + onboarding |
-
-**Extras:**
-- **Taxa de implantação** (opcional): R$ 297 a R$ 997 — configurar números, importar base, montar a primeira campanha e textos.
-- **Número adicional:** R$ 49/mês.
-- **Pacote de envios extra:** R$ 49 a cada 5.000.
-- **Plano anual:** 2 meses grátis (pague 10, use 12) — melhora o caixa.
-- **Plano Oficial (Cloud API Meta):** mensalidade de plataforma (ex. R$ 297) **+ repasse do custo Meta por mensagem com margem** (ex. cobrar R$ 0,55 por mensagem de marketing). Público: empresas maiores que não podem arriscar o número.
-- **White label para agências:** R$ 1.500 a R$ 3.000/mês (domínio e logo da agência, ela revende).
-
-**Conta rápida:** 50 clientes, média R$ 350 → **R$ 17.500/mês de receita**, ~R$ 600 de infraestrutura → margem bruta ≈ **96%** (antes de suporte, marketing e impostos — no Simples Nacional, Anexo III/V, considere 6% a 15,5%).
-
 ---
 
 ## 8. Passo a passo de implementação
