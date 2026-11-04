@@ -306,7 +306,7 @@ model MessageLog {
 | | **Start** | **Pro** (mais vendido) | **Agência** |
 |---|---|---|---|
 | Mensal | **R$ 329** | **R$ 497** | **R$ 997** |
-| Semestral (à vista, 5% off) | R$ 1.875 (≈ R$ 313/mês) | R$ 2.833 (≈ R$ 472/mês) | R$ 5.683 (≈ R$ 947/mês) |
+| Semestral (à vista, 10% off) | R$ 1.777 (≈ R$ 296/mês) | R$ 2.684 (≈ R$ 447/mês) | R$ 5.384 (≈ R$ 897/mês) |
 | Anual (à vista ou 12x, 10% off) | R$ 3.553 (≈ R$ 296/mês) | R$ 5.368 (≈ R$ 447/mês) | R$ 10.768 (≈ R$ 897/mês) |
 | Números conectados | 1 | 3 | 10 |
 | Mensagens | **Ilimitadas** (respeitando o limite anti-ban por número) | Ilimitadas | Ilimitadas |
