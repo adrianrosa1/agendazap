@@ -10,7 +10,7 @@
 - **Diferencial:** o sistema **monitora o grupo** e sabe quem entrou. Quem recebeu a mensagem e **não entrou** em X horas recebe um **follow-up com outro texto** (até N tentativas). Depois, a campanha divulga conteúdo dentro do grupo.
 - **Motor de WhatsApp:** **Evolution API** (open source, auto-hospedada, gratuita) — com opção futura de **WhatsApp Cloud API oficial (Meta)** para clientes que querem zero risco de banimento.
 - **Stack:** a mesma do AgendaZap (Next.js 16 + Prisma + NextAuth + Asaas) + **PostgreSQL + Redis + BullMQ (worker)** + **MinIO/S3** para mídias, tudo numa VPS com Docker.
-- **Preço sugerido:** planos de **R$ 197 / R$ 397 / R$ 797 por mês** + taxa de implantação opcional. Custo de infraestrutura por cliente fica entre R$ 5 e R$ 25/mês → margem bruta acima de 85%.
+- **Preço sugerido:** planos de **R$ 249 / R$ 497 / R$ 997 por mês** (mensagens ilimitadas, desconto no semestral/anual) + implantação opcional de R$ 497. Custo de infraestrutura por cliente fica entre R$ 5 e R$ 25/mês → margem bruta acima de 85%.
 
 ---
 
@@ -289,12 +289,49 @@ model MessageLog {
 
 ## 7. Quanto cobrar
 
-Referência de mercado no Brasil (ferramentas de disparo/grupos como Sendflow, ZapGrupos, Disparo Pro, etc.): de **R$ 100 a R$ 1.000+/mês**, conforme número de envios e números conectados.
+### Referência da concorrência (pesquisa de nov/2026 — confirmar nos sites antes de publicar)
+
+| Ferramenta | Tipo | Preço | Implantação |
+|---|---|---|---|
+| **SendFlow** (concorrente direto: grupos para lançamentos) | Planos semestrais | Lite ~R$ 250/mês (1 número) · Standard ~R$ 500/mês (3 números) · Black ~R$ 830/mês (5 números). Mensagens e grupos ilimitados | Sem taxa; **call de implementação incluída só no Black** |
+| Azallon | Disparador em massa | R$ 97/mês (não oficial) · R$ 167/mês (PRO, API oficial) | Sem taxa divulgada |
+| Onsms / Tenessi Hub / SocialHub | Disparo via API oficial | R$ 99 a R$ 599/mês + custo Meta por mensagem | Em geral "sem setup" |
+| MultiWhats.link | Multiatendimento | — | **Setup de R$ 1.500** à vista |
+| Z-API (só a API, sem painel) | Infraestrutura | ~R$ 97/mês por número | — |
+
+**Leitura:** o mercado de grupos/lançamentos paga de R$ 250 a R$ 830/mês; disparadores simples brigam na faixa de R$ 97. A maioria **não cobra implantação** ou a coloca como bônus do plano mais caro — por isso aqui ela é **opcional** e vira **brinde** no plano Agência e no pagamento semestral/anual.
 
 ### Planos sugeridos (Evolution API — não oficial)
 
 | | **Start** | **Pro** (mais vendido) | **Agência** |
 |---|---|---|---|
+| Mensal | **R$ 249** | **R$ 497** | **R$ 997** |
+| Semestral (à vista, ~15% off) | R$ 1.270 (≈ R$ 212/mês) | R$ 2.535 (≈ R$ 422/mês) | R$ 5.085 (≈ R$ 847/mês) |
+| Anual (à vista ou 12x, ~25% off) | R$ 2.240 (≈ R$ 187/mês) | R$ 4.470 (≈ R$ 372/mês) | R$ 8.970 (≈ R$ 747/mês) |
+| Números conectados | 1 | 3 | 10 |
+| Mensagens | **Ilimitadas** (respeitando o limite anti-ban por número) | Ilimitadas | Ilimitadas |
+| Leads na base | 20.000 | 100.000 | 500.000 |
+| Usuários | 1 | 3 | 10 + sub-contas para clientes |
+| Grupos VIP / campanhas | Ilimitados | Ilimitados | Ilimitados |
+| Follow-up automático (quem não entrou) | 2 etapas | 5 etapas | 5 etapas |
+| Link rastreável + relatórios | ✔ | ✔ | ✔ + exportação |
+| IA para variações de texto | — | ✔ | ✔ |
+| Implantação assistida | Opcional (R$ 497) | Opcional (R$ 497) · **grátis no anual** | **Inclusa** |
+| Suporte | E-mail | WhatsApp | Prioritário |
+
+> O limite real de envio é **por número** (aquecimento + limite diário — seção 4.6), não por mês. Isso permite anunciar "mensagens ilimitadas" como a concorrência sem aumentar o risco de banimento.
+
+**Extras:**
+- **Implantação assistida** (avulsa): R$ 497 — configurar números, importar base, criar grupo, montar a primeira campanha e os textos de convite/follow-up. Versão "feita para você" (você opera o primeiro lançamento): R$ 997 a R$ 1.500.
+- **Número adicional:** R$ 59/mês.
+- **Plano Oficial (Cloud API Meta):** mensalidade de plataforma (ex. R$ 297) **+ repasse do custo Meta por mensagem com margem** (ex. cobrar R$ 0,55 por mensagem de marketing). Público: empresas maiores que não podem arriscar o número.
+- **White label para agências:** R$ 1.500 a R$ 3.000/mês (domínio e logo da agência, ela revende).
+
+**Diferencial para justificar o preço:** a SendFlow gerencia os grupos; este sistema também **convida no privado, identifica quem não entrou e reenvia com outro texto automaticamente**.
+
+**Conta rápida:** 50 clientes, média R$ 450 → **R$ 22.500/mês de receita**, ~R$ 600 de infraestrutura → margem bruta ≈ **97%** (antes de suporte, marketing e impostos — no Simples Nacional, Anexo III/V, considere 6% a 15,5%).
+
+---|---|---|---|
 | Preço mensal | **R$ 197** | **R$ 397** | **R$ 797** |
 | Números conectados | 1 | 3 | 10 |
 | Envios/mês | 5.000 | 20.000 | 80.000 |
@@ -377,7 +414,7 @@ Referência de mercado no Brasil (ferramentas de disparo/grupos como Sendflow, Z
 
 ### Fase 8 — Testes e lançamento (1–2 semanas)
 1. Testes com 2–3 chips próprios, aquecidos, por pelo menos 7 dias.
-2. Beta fechado com 3–5 clientes a preço reduzido (ex. R$ 97) em troca de feedback.
+2. Beta fechado com 3–5 clientes a preço reduzido (ex. R$ 147) em troca de feedback.
 3. Ajustar limites anti-ban com base nos dados reais.
 4. Página de vendas, vídeo de demonstração, tutorial de onboarding.
 5. Lançamento.
