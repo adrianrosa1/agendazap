@@ -10,7 +10,7 @@
 - **Diferencial:** o sistema **monitora o grupo** e sabe quem entrou. Quem recebeu a mensagem e **não entrou** em X horas recebe um **follow-up com outro texto** (até N tentativas). Depois, a campanha divulga conteúdo dentro do grupo.
 - **Motor de WhatsApp:** **Evolution API** (open source, auto-hospedada, gratuita) — com opção futura de **WhatsApp Cloud API oficial (Meta)** para clientes que querem zero risco de banimento.
 - **Stack:** a mesma do AgendaZap (Next.js 16 + Prisma + NextAuth + Asaas) + **PostgreSQL + Redis + BullMQ (worker)** + **MinIO/S3** para mídias, tudo numa VPS com Docker.
-- **Preço sugerido:** planos de **R$ 249 / R$ 497 / R$ 997 por mês** (mensagens ilimitadas, desconto no semestral/anual) + implantação opcional de R$ 497. Custo de infraestrutura por cliente fica entre R$ 5 e R$ 25/mês → margem bruta acima de 85%.
+- **Preço sugerido:** planos de **R$ 329 / R$ 497 / R$ 997 por mês** (mensagens ilimitadas, até 10% de desconto no semestral/anual) + implantação de R$ 999 (R$ 499 + 2× R$ 250). Custo de infraestrutura por cliente fica entre R$ 5 e R$ 25/mês → margem bruta acima de 85%.
 
 ---
 
@@ -305,9 +305,9 @@ model MessageLog {
 
 | | **Start** | **Pro** (mais vendido) | **Agência** |
 |---|---|---|---|
-| Mensal | **R$ 249** | **R$ 497** | **R$ 997** |
-| Semestral (à vista, ~15% off) | R$ 1.270 (≈ R$ 212/mês) | R$ 2.535 (≈ R$ 422/mês) | R$ 5.085 (≈ R$ 847/mês) |
-| Anual (à vista ou 12x, ~25% off) | R$ 2.240 (≈ R$ 187/mês) | R$ 4.470 (≈ R$ 372/mês) | R$ 8.970 (≈ R$ 747/mês) |
+| Mensal | **R$ 329** | **R$ 497** | **R$ 997** |
+| Semestral (à vista, 5% off) | R$ 1.875 (≈ R$ 313/mês) | R$ 2.833 (≈ R$ 472/mês) | R$ 5.683 (≈ R$ 947/mês) |
+| Anual (à vista ou 12x, 10% off) | R$ 3.553 (≈ R$ 296/mês) | R$ 5.368 (≈ R$ 447/mês) | R$ 10.768 (≈ R$ 897/mês) |
 | Números conectados | 1 | 3 | 10 |
 | Mensagens | **Ilimitadas** (respeitando o limite anti-ban por número) | Ilimitadas | Ilimitadas |
 | Leads na base | 20.000 | 100.000 | 500.000 |
@@ -316,13 +316,13 @@ model MessageLog {
 | Follow-up automático (quem não entrou) | 2 etapas | 5 etapas | 5 etapas |
 | Link rastreável + relatórios | ✔ | ✔ | ✔ + exportação |
 | IA para variações de texto | — | ✔ | ✔ |
-| Implantação assistida | Opcional (R$ 497) | Opcional (R$ 497) · **grátis no anual** | **Inclusa** |
+| Implantação assistida | R$ 999 (R$ 499 + 2× R$ 250) | R$ 999 (R$ 499 + 2× R$ 250) | **Inclusa** |
 | Suporte | E-mail | WhatsApp | Prioritário |
 
 > O limite real de envio é **por número** (aquecimento + limite diário — seção 4.6), não por mês. Isso permite anunciar "mensagens ilimitadas" como a concorrência sem aumentar o risco de banimento.
 
 **Extras:**
-- **Implantação assistida** (avulsa): R$ 497 — configurar números, importar base, criar grupo, montar a primeira campanha e os textos de convite/follow-up. Versão "feita para você" (você opera o primeiro lançamento): R$ 997 a R$ 1.500.
+- **Implantação assistida:** R$ 999 em 3x (R$ 499 na contratação + 2 parcelas de R$ 250) — configurar números, importar base, criar grupo, montar a primeira campanha e os textos de convite/follow-up. Versão "feita para você" (você opera o primeiro lançamento): R$ 997 a R$ 1.500.
 - **Número adicional:** R$ 59/mês.
 - **Plano Oficial (Cloud API Meta):** mensalidade de plataforma (ex. R$ 297) **+ repasse do custo Meta por mensagem com margem** (ex. cobrar R$ 0,55 por mensagem de marketing). Público: empresas maiores que não podem arriscar o número.
 - **White label para agências:** R$ 1.500 a R$ 3.000/mês (domínio e logo da agência, ela revende).
